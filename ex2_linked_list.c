@@ -29,24 +29,49 @@ int main(void) {
     printf("===========================================\n");
 
     int i;
-    char choice;
     NODE *head,*temp;   // 宣告 head,temp 為指向結構 NODE 的指標
-    head = NewNode( );  // 建立一個新節點，並將 NewNode 回傳的記憶體位置指定給 head
+    head = NewNode( );  // 1) 建立一個新節點，並將 NewNode 回傳的記憶體位置指定給 head
 
     temp = head;        // 兩個指標指向同一個節點
+#if 1
+	head->data = 10;			// 2) 加入資料欄位A
+	head->link = NULL;
 
-    printf("=================輸入======================\n");
+	printf("i = 0, head = %p, head->link = %p, temp = %p, temp->link = %p\n", head, head->link, temp, temp->link);
+
+    for(i = 1; i <= 4; i++)
+    {
+        temp->link = NewNode( );	// 3) 呼叫建立新節點，並將其連在前一個後面
+        temp->link->data = 10+i;	// 4) 加入資料欄位A
+
+		printf("i = %d, temp = %p, temp->link = %p\n", i, temp, temp->link);
+
+        temp = temp->link;			// 5) 將新節點的尾巴變成temp指標，這樣才可以往後長新結點
+
+    }
+    temp->link = NULL;
+
+	printf("i = %d, temp = %p, temp->link = %p\n", i, temp, temp->link);
+#else
+	printf("=================輸入======================\n");
     printf("請輸入串列第1 個資料欄位值：");
-    scanf("%d",&head->data);
+    scanf("%d",&head->data);	// 2) 加入資料欄位A
+	head->link = NULL;
+
+	printf("i = 0, head = %p, head->link = %p, temp = %p, temp->link = %p\n", head, head->link, temp, temp->link);
 
     for(i = 1; i <= 4; i++)
     {
         printf("請輸入串列第%d 個資料欄位值：",i+1);
-        temp->link = NewNode( );        //呼叫建立新節點
+        temp->link = NewNode( );	// 呼叫建立新節點
         scanf("%d",&temp->link->data);
         temp = temp->link;
+
+		printf("i = %d, temp = %p, temp->link = %p\n", i, temp, temp->link);
     }
     temp->link = NULL;
+#endif
+
 
     printf("=================輸出======================\n");
     PrintLists(head); //呼叫列印兩個或兩個以上串列的內容
