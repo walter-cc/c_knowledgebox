@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include <string.h>     // for int strlen(const char *str) : 算出字元總數，不含'\0'
 
-#define EXAMPLE 4
+#define EXAMPLE 5
 /*
 1 : simple example
 2 : e.g. > 回傳一個指向char的指標
@@ -32,6 +32,7 @@
 3 : e.g. > 函數指標 (Function pointer)
             int (*op)(int a, int b)     // ()不能省
 4 : e.g. > 指標陣列 (pointers of array)
+5 : e.g. > size of pointer
 */
 
 
@@ -194,6 +195,40 @@ DAYS[2] = Tuesday
 *(DAYS + 2) = Tuesday
 */
 #endif
+
+#if (EXAMPLE == 5)
+
+    char *x;            // 指向char的pointer
+    int *y;             // 指向int的pointer
+    char **a;           // 指向一個"指向char的pointer"的pointer
+    char *b[20];        // 有20個指向char的pointer，叫做「指標陣列」
+    char (*c)[20];      // 指向char[20]陣列的pointer
+    char (*d)[20][0];   // 指向char[20][0]陣列的pointer
+    int (*pt)(int a, int b);   // 指向int(int a, int b)的函數的pointer
+
+    printf("sizeof(x) = %d, sizeof(*x) = %d\n", (int)sizeof(x) , (int)sizeof(*x));
+    printf("sizeof(y) = %d, sizeof(*y) = %d\n", (int)sizeof(y), (int)sizeof(*y));
+    printf("sizeof(a) = %d, sizeof(*a) = %d\n", (int)sizeof(a), (int)sizeof(*a));
+    printf("sizeof(b) = %d, sizeof(*b) = %d\n", (int)sizeof(b), (int)sizeof(*b));
+    printf("sizeof(c) = %d, sizeof(*c) = %d\n", (int)sizeof(c), (int)sizeof(*c));
+    printf("sizeof(d) = %d, sizeof(*d) = %d\n", (int)sizeof(d), (int)sizeof(*d));
+    printf("sizeof(pt) = %d, sizeof(*pt) = %d\n", (int)sizeof(pt), (int)sizeof(*pt));
+
+// 螢幕輸出
+/*
+cc@c_knowledgebox$gcc pointer_total.c -o test
+cc@c_knowledgebox$./test
+sizeof(x) = 8, sizeof(*x) = 1
+sizeof(y) = 8, sizeof(*y) = 4
+sizeof(a) = 8, sizeof(*a) = 8
+sizeof(b) = 160, sizeof(*b) = 8
+sizeof(c) = 8, sizeof(*c) = 20
+sizeof(d) = 8, sizeof(*d) = 0
+sizeof(pt) = 8, sizeof(*pt) = 1
+
+*/
+#endif
+
     return 0;
 }
 
