@@ -16,6 +16,13 @@
 # 指標陣列 (pointers of array) :
 
   - 一種陣列，其元素皆為指標。
+
+# 常數指標(constant pointer) :
+
+  - 指向 const 的 pointer，e.g. : const int *pci
+
+  - 指向 不是const 的 const pointer，e.g. : int *const cpi
+
 ===============================
 # 螢幕輸出結果
 
@@ -24,7 +31,7 @@
 #include <stdio.h>
 #include <string.h>     // for int strlen(const char *str) : 算出字元總數，不含'\0'
 
-#define EXAMPLE 5
+#define EXAMPLE 7
 /*
 1 : simple example
 2 : e.g. > 回傳一個指向char的指標
@@ -33,6 +40,8 @@
             int (*op)(int a, int b)     // ()不能省
 4 : e.g. > 指標陣列 (pointers of array)
 5 : e.g. > size of pointer
+6 : e.g. > 指向 const 的 pointer (指向 const 的 pointer)，e.g. : const int *pci
+7 : e.g. > 指向不是常數的指標常數 (指向 不是const 的 const pointer)，e.g. : int *const cpi
 */
 
 
@@ -227,6 +236,76 @@ sizeof(d) = 8, sizeof(*d) = 0
 sizeof(pt) = 8, sizeof(*pt) = 1
 
 */
+#endif
+
+#if (EXAMPLE == 6)
+    int num = 5;
+    const int limit = 500;  // 「整數常數」，值無法修改
+    int *pi;                // 指向「整數」的指標
+    const int *pci;         // 指向「整數常數」的指標。 const int *pci; 或是 int const *pci; 都可以
+
+/*
+# pci 宣告為指向「整數常數」的指標代表了 :
+
+  - pci可以指派為指向其他「整數常數」。e.g. : pci = &limit;     其中 const int limit = 500;
+
+  - pci可以指派為指向其他「非整數常數」。e.g. : pci = &num;      其中 int num = 5;
+
+  - pci可以透過「解參考」讀取數值。e.g. : printf("value %d\n", *pci);
+
+  - pci無法透過「解參考」改變指向的位址內容。e.g. : *pci = 200;
+*/
+    pi = &num;
+    pci = &limit;
+
+    printf("num - address %p value %d\n", &num, num);
+    printf("limit - address %p value %d\n", &limit, limit);
+    printf("pi - address %p value %p\n", &pi, pi);
+    printf("pci - address %p value %p\n", &pci, pci);
+
+    printf("value %d\n", *pci);     // 解參考「常數指標」，合法且必要
+
+    pci = &num; // 合法
+    //*pci = 200;
+    // 語法錯誤，指標認為只到的變數是「整數常數」，不允許透過指標修改內容，但仍然可以透過num修改內容，只是無法透過pci進行修改。
+    // error: assignment of read-only location ‘*pci’
+
+
+// 螢幕輸出
+/*
+cc@c_knowledgebox$gcc pointer_total.c -o test
+cc@c_knowledgebox$./test
+num - address 0x7ffdc4c04f00 value 5
+limit - address 0x7ffdc4c04f04 value 500
+pi - address 0x7ffdc4c04f08 value 0x7ffdc4c04f00
+pci - address 0x7ffdc4c04f10 value 0x7ffdc4c04f04
+value 500
+*/
+#endif
+
+#if (EXAMPLE == 7)
+    int num;
+    int *const cpi = &num;  // 指向 不是const 的 const pointer
+
+/*
+# int *const cpi = &num; 代表了 :
+
+  - cpi 必須初始為指向不是常數的變數。e.g. : int *const cpi = &num;
+
+  - cpi 指標無法修改。表示永遠都指到num，無法修改。
+
+  - cpi 指到的資料可以修改。表示num的值可以修改。
+
+*/
+    const int limit = 500;  // 「整數常數」，值無法修改
+    //int *const cpi1 = &limit;  // 語法錯誤
+    // 語法錯誤，「指標常數」cpi指到「整數常數」limit，表示cpi 指到的資料可以修改，這不符合預期。
+    // warning: initialization discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+
+    *cpi = limit;   // 合法
+    *cpi = 25;      // 合法
+
+
 #endif
 
     return 0;
