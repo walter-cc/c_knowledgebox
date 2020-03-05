@@ -23,6 +23,22 @@
 
   - 指向 不是const 的 const pointer，e.g. : int *const cpi
 
+#define ARRAYSIZE(arr) (sizeof(arr)/sizeof(*arr))
+
+- ARRAYSIZE(arr) : 算出array裡面有幾個element，8個
+- sizeof(arr) : array裡面 Total 幾個bytes
+- sizeof(*arr) : 每單位 element 是 幾個bytes
+
+// <offset, value>
+reg_val_t data_raw_main[] =
+{
+    0x4930, 0x12345678, //FHO.ORIWDMA_FH_SPARE_5
+    0x4934, 0x87654321, //FHO.ORIWDMA_FH_SPARE_6
+    0x4938, 0xdeadbeef, //FHO.ORIWDMA_FH_SPARE_7
+    0x493c, 0xbeefdead, //FHO.ORIWDMA_FH_SPARE_8
+};
+T.regval_size = ARRAYSIZE(data_raw_main);
+
 ===============================
 # 螢幕輸出結果
 
@@ -31,7 +47,7 @@
 #include <stdio.h>
 #include <string.h>     // for int strlen(const char *str) : 算出字元總數，不含'\0'
 
-#define EXAMPLE 7
+#define EXAMPLE 8
 /*
 1 : simple example
 2 : e.g. > 回傳一個指向char的指標
@@ -42,6 +58,7 @@
 5 : e.g. > size of pointer
 6 : e.g. > 指向 const 的 pointer (指向 const 的 pointer)，e.g. : const int *pci
 7 : e.g. > 指向不是常數的指標常數 (指向 不是const 的 const pointer)，e.g. : int *const cpi
+8 : e.g. > #define ARRAYSIZE(arr) (sizeof(arr)/sizeof(*arr))
 */
 
 
@@ -308,6 +325,33 @@ value 500
 
 #endif
 
+#if (EXAMPLE == 8)
+    
+#define ARRAYSIZE(arr) (int)(sizeof(arr)/sizeof(*arr))
+
+/*
+- ARRAYSIZE(arr) : 算出array裡面有幾個element，8個
+- sizeof(arr) : array裡面 Total 幾個bytes
+- sizeof(*arr) : 每單位 element 是 幾個bytes
+*/
+    int array[] =
+    {
+        0x12, 0x34,
+        0x56, 0x78,
+        0x12, 0x34,
+        0x56, 0x78,
+    };
+
+    printf("ARRAYSIZE(arr) %d\n", ARRAYSIZE(array));
+
+// 螢幕輸出
+/*
+cc@c_knowledgebox$gcc pointer_total.c -o test
+cc@c_knowledgebox$./test 
+ARRAYSIZE(arr) 8
+*/
+
+#endif
     return 0;
 }
 
