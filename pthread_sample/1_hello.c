@@ -22,14 +22,17 @@ Master
 Child
 Master
 Child
-
+===============================
+# 此範例可以看到 :
+最簡易的POSIX thread程式庫(pthread)
 ===============================
 
 # POSIX執行緒（英語：POSIX Threads，常被縮寫為Pthreads）是POSIX的執行緒標準，定義了創建和操縱執行緒的一套API。
 
 # 實現POSIX 執行緒標準的庫常被稱作Pthreads，一般用於Unix-like POSIX 系統，如Linux、 Solaris。
 
-# pthread 的 pthread_create 函數可以用來建立新的執行緒，子執行緒在建立之後，就會以平行的方式執行，在子執行緒的執行期間，主執行緒還是可以正常執行自己的工作，最後主執行緒再以 pthread_join 函數等待子執行緒執行結束。
+# pthread 的 pthread_create 函數可以用來建立新的執行緒，子執行緒在建立之後，就會以平行的方式執行，在子執行緒的執行期間，
+  主執行緒還是可以正常執行自己的工作，最後主執行緒再以 pthread_join 函數等待子執行緒執行結束。
 
 # int pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_routine) (void *), void *arg);
 
@@ -45,35 +48,31 @@ Child
 
 
 #include <stdio.h>
-#include <pthread.h>
+#include <pthread.h>    // 這是ptrhead程式庫的標頭檔.
 #include <unistd.h>
 
 // 子執行緒函數
 void* child(void* data) {
-    
+    int i;
     char *str = (char*) data;   // 取得輸入資料
     
-    for(int i = 0;i < 3;++i) {
+    for(i = 0 ;i < 3; i++) {
         printf("%s\n", str);    // 每秒輸出文字
         sleep(1);
     }
-    
     pthread_exit(NULL);         // 離開子執行緒
-    
 }
 
 // 主程式(主執行緒)
 int main() {
-    
-    pthread_t t;                                // 宣告 pthread 變數
-    pthread_create(&t, NULL, child, "Child");   // 建立新的子執行緒
+    int i;
+    pthread_t t;                                // 宣告 pthread 變數，"pthread_t"資料結構可儲存 pthead的資訊
+    pthread_create(&t, NULL, child, "Child");   // 建立新的子執行緒，"child"為執行緒要執行的函式名稱
 
     // 主執行緒工作
-    for(int i = 0;i < 3;++i) {
-        
+    for(i = 0; i < 3; i++) {
         printf("Master\n"); // 每秒輸出文字
         sleep(1);
-        
     }
 
     pthread_join(t, NULL);                      // 等待子執行緒執行完成
