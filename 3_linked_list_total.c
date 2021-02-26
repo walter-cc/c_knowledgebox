@@ -300,6 +300,116 @@ nodePointer Concatenate(nodePointer L1, nodePointer L2)
 #endif
 
 
+#if (EXAMPLE == 3)  // temp : 3 : e.g. > 雙向鏈結串列 (Doubly Linked List) 完整sample code
+
+struct DNode    // 雙向鏈結串列 (Doubly Linked List)
+{
+    int data;
+    struct DNode *llink;
+    struct DNode *rlink;
+};
+
+typedef struct DNode Dnode;
+typedef Dnode *DnodePointer;  // 指向Dnode的pointer
+
+// 配置節點
+DnodePointer DLGetNode()
+{
+    DnodePointer NewNode;
+
+    NewNode = (DnodePointer) malloc(sizeof(Dnode)); // 記憶體大小是雙向鏈結串列節點的大小
+
+    if(NewNode == NULL)
+        printf("memory is not enough\n");
+
+    return NewNode;
+}
+
+// 插入新節點在m節點之後，原串列 : L <-> b <-> m <-> a <-> NULL
+int DLinsertAfter(DnodePointer L, DnodePointer m, int d)    // L : List Head(第一個節點), m : 被指定的節點, d : 新節點的值
+{
+    DnodePointer n = DLGetNode();  // 取得一個新節點的address
+
+    if(n == NULL)
+        return false;
+
+    // 新節點 NULL <- n -> NULL
+    n->data = d;
+    n->llink = NULL;
+    n->rlink = NULL;
+
+    if(m != NULL)
+    {
+        n->llink = m;               // m <- n -> NULL
+        n->rlink = m->rlink;        // m <- n -> a <-> NULL
+        if(m->rlink != NULL)        // 當m節點不是最後一個節點時(若m有下一個節點)
+            m->rlink->llink = n;    // 則該節點(m的下一個節點)的左鏈結應該指向n，m->rlink = m的下一個節點
+                                    // m <- n <-> a <-> NULL
+        m->rlink = n;               // L <-> b <-> m <-> n <-> a <-> NULL
+    }
+    else    // 串列原本是空串列
+        L = n;              // L -> n
+
+    return true;
+}
+
+// 向後移動工作節點，工作節點 : w
+/*
+w = w->rlink;
+before : L <-> b <-> m <-> a <-> NULL
+                     ^
+                     w
+
+after  : L <-> b <-> m <-> a <-> NULL
+                           ^
+                           w
+*/
+
+// 向前移動工作節點，工作節點 : w
+/*
+w = w->llink;
+before : L <-> b <-> m <-> a <-> NULL
+                     ^
+                     w
+
+after  : L <-> b <-> m <-> a <-> NULL
+               ^
+               w
+*/
+
+/*
+- 刪除m節點，原串列 : L <-> b <-> m <-> a <-> NULL
+- 刪除m節點錢，必須要先知道m節點的前一個和後一個節點
+- m->llink : m的前一個節點(或是m的左鏈結)
+- m->rlink : m的下一個節點(或是m的右鏈結)
+- 不需透過迴圈來找。 ## 跟單向鏈結串列 (Singly Linked List)不同。
+*/
+int DLDeleteNode(DnodePointer L, DnodePointer m)    // L : List Head(第一個節點), m : 被指定的節點
+{
+    if((m->llink == NULL) && (m->rlink == NULL))    // 如果m是唯一的節點
+    {
+        L = NULL;
+        free(m);
+        return true;
+    }
+
+    if((m->llink == NULL) || (m->rlink == NULL))    // 如果m是第一個節點或最後一個節點
+    {
+        return false;
+    }
+
+    if((m->llink != NULL) && (m->rlink != NULL))    // 如果m不是第一個節點或最後一個節點
+    {
+        m->llink->rlink = m->rlink;     // L <-> b <-> m <-> a <-> NULL 變成 L <-> b -> a <-> NULL
+        m->rlink->llink = m->llink;     // L <-> b <-> m <-> a <-> NULL 變成 L <-> b <-> a <-> NULL
+    }
+    free(m);
+    return true;
+}
+
+#endif
+
+
 
 
 /*
