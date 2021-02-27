@@ -23,11 +23,6 @@ gcc -o hello hello.c
 ===============================
 # 此範例可以看到 : 「習」
 
-
-# 參考文件 :
-資料結構初學指引 ─ 入門精要版, 3/e，陳錦輝
-
-
 # Node = Data field + link field
 
 # 有四種形式 :
@@ -44,75 +39,13 @@ gcc -o hello hello.c
 # Linked List 特性 : 可充分而有效的利用可用記憶體空間。我們不該限制使用者在程式執行過程中使用的節點數量，也不該配置過多不會用到的記憶體。我們必須藉由C語言的動態記憶體配置函式「malloc()」來產生新節點。
 
 ===============================
-
-#if 0
-    //================================================
-    printf("arguments numbers : %d\n", argc);   // argc : 所帶參數的數目
-
-    for (i = 0; i < argc; i++) {
-        printf("[%d] %s\n", i, argv[i]);    // argv : 一個陣列，它會分拆所帶的參數放到陣列內
-    }
-    printf("\n");
-    //================================================
-#endif
-
 # 螢幕輸出結果
 
-
-cc@myfirst$gcc Temp_C_Code.c -o test
-cc@myfirst$./test
-
-arguments numbers : 1
-[0] ./test
-
-
-
-cc@myfirst$./test walter
-
-arguments numbers : 2
-[0] ./test
-[1] walter
-
-
-
-cc@myfirst$./test w a l t e r
-
-arguments numbers : 7
-[0] ./test
-[1] w
-[2] a
-[3] l
-[4] t
-[5] e
-[6] r
-
-
-
-cc@myfirst$./test 1 2 3 4
-
-arguments numbers : 5
-[0] ./test
-[1] 1
-[2] 2
-[3] 3
-[4] 4
 
 
 ===============================
 # 參考文件 :
-
-C/C++ 程式設計教學：main 函數讀取命令列參數，argc 與 argv 用法
-https://blog.gtwang.org/programming/c-cpp-tutorial-argc-argv-read-command-line-arguments/
-
-
-MAIN(int argc, char *argv[ ]) 之用法
-https://blog.xuite.net/tzeng015/twblog/113273095
-
-===============================
-
-printf("\n\033[1;35m[walter]+++++++++++++++++++++++++[%s][%d]\n\n\033[0m",__FUNCTION__,__LINE__);
-printf("\n\033[1;35m[walter]-------------------------[%s][%d]\n\n\033[0m",__FUNCTION__,__LINE__);
-
+資料結構初學指引 ─ 入門精要版, 3/e，陳錦輝
 
 ===============================
 */
@@ -598,5 +531,75 @@ L1 + L2
 }
 
 
+
+/*
+===============================
+printf("\n\033[1;35m[walter]+++++++++++++++++++++++++[%s][%d]\n\n\033[0m",__FUNCTION__,__LINE__);
+printf("\n\033[1;35m[walter]-------------------------[%s][%d]\n\n\033[0m",__FUNCTION__,__LINE__);
+===============================
+
+int main(int argc, char *argv[]) {
+    
+    printf("arguments numbers : %d\n", argc);   // argc : 所帶參數的數目
+
+    for (i = 0; i < argc; i++) {
+        printf("[%d] %s\n", i, argv[i]);    // argv : 一個陣列，它會分拆所帶的參數放到陣列內
+    }
+    printf("\n");
+    return 0;
+}
+
+# 螢幕輸出結果
+
+cc@myfirst$gcc Temp_C_Code.c -o test
+cc@myfirst$./test
+
+arguments numbers : 1
+[0] ./test
+
+
+
+cc@myfirst$./test walter
+
+arguments numbers : 2
+[0] ./test
+[1] walter
+
+
+
+cc@myfirst$./test w a l t e r
+
+arguments numbers : 7
+[0] ./test
+[1] w
+[2] a
+[3] l
+[4] t
+[5] e
+[6] r
+
+
+
+cc@myfirst$./test 1 2 3 4
+
+arguments numbers : 5
+[0] ./test
+[1] 1
+[2] 2
+[3] 3
+[4] 4
+
+===============================
+# 參考文件 :
+
+C/C++ 程式設計教學：main 函數讀取命令列參數，argc 與 argv 用法
+https://blog.gtwang.org/programming/c-cpp-tutorial-argc-argv-read-command-line-arguments/
+
+
+MAIN(int argc, char *argv[ ]) 之用法
+https://blog.xuite.net/tzeng015/twblog/113273095
+
+===============================
+*/
 
 

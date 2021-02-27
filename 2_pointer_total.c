@@ -68,79 +68,16 @@ T.regval_size = ARRAYSIZE(data_raw_main);
 
 
 ===============================
-
-#if 0
-    //================================================
-    printf("arguments numbers : %d\n", argc);   // argc : ┮盿把计计ヘ
-
-    for (i = 0; i < argc; i++) {
-        printf("[%d] %s\n", i, argv[i]);    // argv : 皚ウ穦だ╊┮盿把计皚ず
-    }
-    printf("\n");
-    //================================================
-#endif
-
 # 棵辊块挡狦
 
-
-cc@myfirst$gcc Temp_C_Code.c -o test
-cc@myfirst$./test
-
-arguments numbers : 1
-[0] ./test
-
-
-
-cc@myfirst$./test walter
-
-arguments numbers : 2
-[0] ./test
-[1] walter
-
-
-
-cc@myfirst$./test w a l t e r
-
-arguments numbers : 7
-[0] ./test
-[1] w
-[2] a
-[3] l
-[4] t
-[5] e
-[6] r
-
-
-
-cc@myfirst$./test 1 2 3 4
-
-arguments numbers : 5
-[0] ./test
-[1] 1
-[2] 2
-[3] 3
-[4] 4
 
 
 ===============================
 # 把σゅン :
 
-C/C++ 祘Α砞璸毙厩main ㄧ计弄㏑把计argc 籔 argv ノ猭
-https://blog.gtwang.org/programming/c-cpp-tutorial-argc-argv-read-command-line-arguments/
-
-
-MAIN(int argc, char *argv[ ]) ぇノ猭
-https://blog.xuite.net/tzeng015/twblog/113273095
-
-===============================
-
-printf("\n\033[1;35m[walter]+++++++++++++++++++++++++[%s][%d]\n\n\033[0m",__FUNCTION__,__LINE__);
-printf("\n\033[1;35m[walter]-------------------------[%s][%d]\n\n\033[0m",__FUNCTION__,__LINE__);
-
 
 ===============================
 */
-
 
 #include <stdio.h>      // standard I/O
 #include <string.h>     // for int strlen(const char *str) : 衡じ羆计ぃ'\0'
@@ -503,5 +440,75 @@ value 500
 }
 
 
+
+/*
+===============================
+printf("\n\033[1;35m[walter]+++++++++++++++++++++++++[%s][%d]\n\n\033[0m",__FUNCTION__,__LINE__);
+printf("\n\033[1;35m[walter]-------------------------[%s][%d]\n\n\033[0m",__FUNCTION__,__LINE__);
+===============================
+
+int main(int argc, char *argv[]) {
+    
+    printf("arguments numbers : %d\n", argc);   // argc : ┮盿把计计ヘ
+
+    for (i = 0; i < argc; i++) {
+        printf("[%d] %s\n", i, argv[i]);    // argv : 皚ウ穦だ╊┮盿把计皚ず
+    }
+    printf("\n");
+    return 0;
+}
+
+# 棵辊块挡狦
+
+cc@myfirst$gcc Temp_C_Code.c -o test
+cc@myfirst$./test
+
+arguments numbers : 1
+[0] ./test
+
+
+
+cc@myfirst$./test walter
+
+arguments numbers : 2
+[0] ./test
+[1] walter
+
+
+
+cc@myfirst$./test w a l t e r
+
+arguments numbers : 7
+[0] ./test
+[1] w
+[2] a
+[3] l
+[4] t
+[5] e
+[6] r
+
+
+
+cc@myfirst$./test 1 2 3 4
+
+arguments numbers : 5
+[0] ./test
+[1] 1
+[2] 2
+[3] 3
+[4] 4
+
+===============================
+# 把σゅン :
+
+C/C++ 祘Α砞璸毙厩main ㄧ计弄㏑把计argc 籔 argv ノ猭
+https://blog.gtwang.org/programming/c-cpp-tutorial-argc-argv-read-command-line-arguments/
+
+
+MAIN(int argc, char *argv[ ]) ぇノ猭
+https://blog.xuite.net/tzeng015/twblog/113273095
+
+===============================
+*/
 
 

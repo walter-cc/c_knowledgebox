@@ -24,6 +24,16 @@ gcc -o hello hello.c
 # 此範例可以看到 : 「習」
 
 
+# typeof(x) : 獲取「括號內x 的變量類型」。
+
+
+typeof(int *)
+
+int *x;
+typeof(x)  y;       // 相當於 int *y
+typeof(*x) y;       // 相當於 int y
+typeof(&x) y;       // 相當於 int **x;
+
 
 ===============================
 # 螢幕輸出結果
@@ -33,18 +43,26 @@ gcc -o hello hello.c
 ===============================
 # 參考文件 :
 
+C語言的gcc擴展語法(6)-typeof類型引用
+https://kknews.cc/code/6e44g3p.html
 
 ===============================
 */
 
 
-#include <stdio.h>          // standard I/O
+#include <stdio.h>      // standard I/O
+#include <string.h>     // for int strlen(const char *str) : 算出字元總數，不含'\0'
+#include <stdlib.h>     // for malloc(), free() functions
 
-void a(void);
-void b(void);
-void c(void);
+struct MY_DATA {
 
-int x = 1;  // global variable
+    int Data_A;
+    int Data_B;
+    int Data_C;
+
+};
+
+
 
 /*
 - argc : argument count(參數總和)的縮寫，代表包括指令本身的參數個數。
@@ -52,57 +70,31 @@ int x = 1;  // global variable
 */
 int main(int argc, char *argv[]) {
 
-    int i;
+    int x;
+    char y;
+    struct MY_DATA z;
 
-    int x = 5;
+    typeof(x) x1;       // 相當於 int x1
+    typeof(y) y1;       // 相當於 char y1
+    typeof(z) z1;       // 相當於 struct MY_DATA z1
 
-    printf("[%d]x = %d\n",__LINE__ , x);  // x = 5, 會先顯示離自己最近的變數型態
+    printf("sizeof(x) = %ld, sizeof(x1) = %ld\n", sizeof(x), sizeof(x1));
+    printf("sizeof(y) = %ld, sizeof(y1) = %ld\n", sizeof(y), sizeof(y1));
+    printf("sizeof(z) = %ld, sizeof(z1) = %ld\n", sizeof(z), sizeof(z1));
+/*
+===============================
+# 螢幕輸出結果
 
-    {
-        int x = 7;
-        printf("[%d]x = %d\n",__LINE__ , x);  //  = 7
-    }
+sizeof(x) = 4, sizeof(x1) = 4
+sizeof(y) = 1, sizeof(y1) = 1
+sizeof(z) = 12, sizeof(z1) = 12
 
-    printf("[%d]x = %d\n",__LINE__ , x);  // x = 5
-
-    a();
-    b();
-    c();
-
-    a();
-    b();
-    c();
-
-    printf("[%d]x = %d\n",__LINE__ , x);  // x = 5
-
+===============================
+*/
     return 0;
 }
 
-void a(void)
-{
-    int x = 25;
-    printf("[%d]x = %d\n",__LINE__ , x);  // x = 25, x = 25
 
-    ++x;
-    printf("[%d]x = %d\n",__LINE__ , x);  // x = 26, x = 26
-}
-
-void b(void)
-{
-    static int x = 50;
-    printf("[%d]x = %d\n",__LINE__ , x);  //x = 50, x = 51      // static variable
-
-    ++x;
-    printf("[%d]x = %d\n",__LINE__ , x);  // x = 51, x = 52     // static variable
-}
-
-void c(void)
-{
-    printf("[%d]x = %d\n",__LINE__ , x);  // x = 1, x = 10      // global variable
-
-    x *= 10;
-    printf("[%d]x = %d\n",__LINE__ , x);  // x = 10, x = 100    // global variable
-}
 
 /*
 ===============================
@@ -111,7 +103,7 @@ printf("\n\033[1;35m[walter]-------------------------[%s][%d]\n\n\033[0m",__FUNC
 ===============================
 
 int main(int argc, char *argv[]) {
-    
+
     printf("arguments numbers : %d\n", argc);   // argc : 所帶參數的數目
 
     for (i = 0; i < argc; i++) {
