@@ -32,14 +32,22 @@ $ ./main
 ===============================
 # 執行結果 :
 
-cc@pthread_sample$./main
+cc@pthread_sample$gcc 6_Semaphore.c -lpthread -o main
+cc@pthread_sample$./main 
 Post 2 jobs.
+-----1-----
+-----2-----
 Counter = 1
 Counter = 2
 Post 3 jobs.
+-----3-----
+-----4-----
+-----5-----
 Counter = 3
 Counter = 4
 Counter = 5
+-----6-----
+
 
 
 
