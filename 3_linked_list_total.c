@@ -84,9 +84,10 @@ struct Node {           // 單向鏈結串列 (Singly Linked List)
 };
 
 typedef struct Node node;
-typedef node *nodePointer;  // 指向「node」的 pointer
+typedef node *nodePointer;       // 指向「node」的 pointer
 
-// 配置一個單向鏈結串列(Singly Linked List) 節點(Node)
+
+// 配置一個單向鏈結串列(Singly Linked List) 節點(Node) = 創造新節點
 nodePointer GetNode()
 {
     nodePointer NewNode;        // nodePointer :  指向「node」的 pointer
